@@ -10,10 +10,10 @@ app.use(express.json());
 //create todo
 app.post("/todos", async (req, res) => {
   try {
-    const {description} = req.body;
+    const {description, category} = req.body;
     const newTodo = await pool.query(
-      "INSERT INTO todo (description) VALUES($1) RETURNING *",
-      [description]
+      "INSERT INTO todo (category,description) VALUES($1, $2) RETURNING *",
+      [category, description]
     );
 
     res.json(newTodo.rows[0]);
@@ -31,6 +31,7 @@ app.get("/todos", async (req, res) => {
     console.error(err.message);
   }
 });
+
 //get todo
 app.get("/todos/:id", async (req, res) => {
   try {
@@ -48,11 +49,11 @@ app.get("/todos/:id", async (req, res) => {
 app.put("/todos/:id", async (req, res) => {
   try {
     const {id} = req.params;
-    const {description} = req.body;
+    const {description, category} = req.body;
 
     const todo = await pool.query(
-      "UPDATE todo SET description = $1 WHERE todo_id = $2",
-      [description, id]
+      "UPDATE todo SET description = $1, category = $2 WHERE todo_id = $3",
+      [description, category, id]
     );
 
     res.json("todo was updated");
@@ -70,6 +71,48 @@ app.delete("/todos/:id", async (req, res) => {
     const todo = await pool.query("DELETE FROM todo  WHERE todo_id = $1", [id]);
 
     res.json("todo was deleted");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// categories
+
+//get categories
+app.get("/categories", async (req, res) => {
+  try {
+    const allCategories = await pool.query("SELECT * FROM categories");
+
+    res.json(allCategories.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+//delete category
+app.delete("/categories/:id", async (req, res) => {
+  try {
+    const {id} = req.params;
+
+    const todo = await pool.query(
+      "DELETE FROM categories  WHERE category_id = $1",
+      [id]
+    );
+
+    res.json("category was deleted");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+//add category
+app.post("/categories", async (req, res) => {
+  try {
+    const {name} = req.body;
+    const newCategory = await pool.query(
+      "INSERT INTO categories (name) VALUES($1) RETURNING *",
+      [name]
+    );
+
+    res.json(newCategory.rows[0]);
   } catch (err) {
     console.error(err.message);
   }

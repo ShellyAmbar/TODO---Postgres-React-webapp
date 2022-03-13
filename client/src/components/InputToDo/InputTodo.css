@@ -1,0 +1,18 @@
+.scrollable-menu {
+  height: 150px;
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollable-menu::-webkit-scrollbar {
+  display: none;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 900;
+  color: darksalmon;
+}

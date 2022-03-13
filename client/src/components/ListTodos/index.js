@@ -35,6 +35,7 @@ function ListTodos() {
       <table className="table mt-5 text-center">
         <thead>
           <tr>
+            <th>Category</th>
             <th>Description</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -43,6 +44,7 @@ function ListTodos() {
         <tbody>
           {todos.map((todo) => (
             <tr key={todo.todo_id}>
+              <td>{todo.category}</td>
               <td>{todo.description}</td>
               <td>
                 <EditToDo todo={todo} onEditComplete={refreshList} />
