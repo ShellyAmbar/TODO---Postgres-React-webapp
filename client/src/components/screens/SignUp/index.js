@@ -3,16 +3,19 @@ import "./SignUp.css";
 import {RegisterValidation} from "../../Util/Validations";
 import useForm from "../../CustomsHooks/useForm";
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function SignUp() {
+  const navigate = useNavigate();
   const signupUser = async () => {
     console.log("signupUser");
     handleNavigationToDashboardTodo();
   };
   const {values, errors, handleChange, handleFormSubmit} = useForm(signupUser);
 
-  const handleNavigationToLogin = () => {};
-  const handleNavigationToDashboardTodo = () => {};
+  const handleNavigationToDashboardTodo = () => {
+    navigate("/TodoDashboard");
+  };
 
   return (
     <div className="container-signup">

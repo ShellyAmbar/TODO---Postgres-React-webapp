@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import useForm from "../../CustomsHooks/useForm";
+import {useNavigate} from "react-router-dom";
 
 import "./Login.css";
 
 function Login() {
+  const navigate = useNavigate();
   const loginUser = async () => {
     handleNavigationToDashboardTodo();
   };
   const {handleChange, handleFormSubmit, values, errors} = useForm(loginUser);
 
-  const handleNavigationToSignup = () => {};
-  const handleNavigationToDashboardTodo = () => {};
+  const handleNavigationToDashboardTodo = () => {
+    navigate("/TodoDashboard");
+  };
 
   return (
     <div className="container-signup">
