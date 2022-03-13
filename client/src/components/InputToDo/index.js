@@ -81,7 +81,7 @@ function InputToDo() {
 
   return (
     <Fragment>
-      <h2 className="text-center title mt-5">TODO</h2>
+      <h2 className="text-center title-input-todo mt-5">TODO</h2>
       <form onSubmit={onSubmitForm} className="d-flex mt-5">
         <button
           type="button"

@@ -1,14 +1,15 @@
 import "./App.css";
 import React, {Fragment} from "react";
-import InputToDo from "./components/InputToDo";
-import ListTodos from "./components/ListTodos";
+import ToDoDashboard from "./components/screens/ToDoDashboard";
+import Login from "./components/screens/Login";
+import SignUp from "./components/screens/SignUp";
+
 function App() {
   return (
     <Fragment>
-      <div className="container">
-        <InputToDo />
-        <ListTodos />
-      </div>
+      <SignUp />
+      {/* <Login /> */}
+      {/* <ToDoDashboard /> */}
     </Fragment>
   );
 }
