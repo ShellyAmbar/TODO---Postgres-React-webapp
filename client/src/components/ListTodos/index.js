@@ -27,9 +27,7 @@ function ListTodos() {
     }
   };
 
-  const refreshList = () => {
-    window.location = "/";
-  };
+  const reload = () => window.location.reload();
   return (
     <Fragment>
       <table className="table mt-5 text-center">
@@ -47,7 +45,7 @@ function ListTodos() {
               <td>{todo.category}</td>
               <td>{todo.description}</td>
               <td>
-                <EditToDo todo={todo} onEditComplete={refreshList} />
+                <EditToDo todo={todo} onEditComplete={reload} />
               </td>
               <td>
                 <button

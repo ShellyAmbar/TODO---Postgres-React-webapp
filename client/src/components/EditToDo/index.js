@@ -23,6 +23,10 @@ function EditTodo({todo, onEditComplete}) {
     }
   };
 
+  useEffect(() => {
+    resetData();
+  }, []);
+
   const resetData = () => {
     setDescription(todo.description);
     setCategory(todo.category);
