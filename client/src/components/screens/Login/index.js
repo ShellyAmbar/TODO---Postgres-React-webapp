@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
 import useForm from "../../CustomsHooks/useForm";
 
 import "./Login.css";
@@ -46,11 +47,8 @@ function Login() {
           </div>
           <div className="container mt-5">
             <p className="text-center">
-              Don't have an account?{" "}
-              <a href="#" onClick={() => handleNavigationToSignup()}>
-                Sign Up
-              </a>
-              .
+              Don't have an account?
+              <Link to="/signup"> Sign Up</Link>
             </p>
           </div>
         </form>

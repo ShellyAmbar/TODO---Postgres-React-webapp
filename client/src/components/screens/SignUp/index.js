@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import "./SignUp.css";
 import {RegisterValidation} from "../../Util/Validations";
 import useForm from "../../CustomsHooks/useForm";
+import {Link} from "react-router-dom";
 
 function SignUp() {
   const signupUser = async () => {
@@ -58,11 +59,7 @@ function SignUp() {
           </div>
           <div className="container mt-5">
             <p className="text-center">
-              Already have an account?{" "}
-              <a href="#" onClick={handleNavigationToLogin}>
-                Sign in
-              </a>
-              .
+              Already have an account? <Link to="/login"> Sign in</Link>
             </p>
             <p className="text-center mt-5">
               By creating an account you agree to our{" "}

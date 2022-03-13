@@ -1,15 +1,12 @@
 import "./App.css";
 import React, {Fragment} from "react";
-import ToDoDashboard from "./components/screens/ToDoDashboard";
-import Login from "./components/screens/Login";
-import SignUp from "./components/screens/SignUp";
+
+import Router from "./components/Navigation/Router";
 
 function App() {
   return (
     <Fragment>
-      <SignUp />
-      {/* <Login /> */}
-      {/* <ToDoDashboard /> */}
+      <Router />
     </Fragment>
   );
 }
