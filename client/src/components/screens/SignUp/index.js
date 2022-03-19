@@ -7,15 +7,31 @@ import {useNavigate} from "react-router-dom";
 
 function SignUp() {
   const navigate = useNavigate();
-  const signupUser = async () => {
-    console.log("signupUser");
-    handleNavigationToDashboardTodo();
-  };
-  const {values, errors, handleChange, handleFormSubmit} = useForm(signupUser);
 
   const handleNavigationToDashboardTodo = () => {
     navigate("/TodoDashboard");
   };
+  const signupUser = async () => {
+    try {
+      let body = {
+        name: values.fullname,
+        email: values.email,
+        password: values.password,
+      };
+      const response = await fetch("http://localhost:5000/api/user/register", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+
+        body: JSON.stringify(body),
+      });
+
+      //console.log(response);
+      handleNavigationToDashboardTodo();
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  const {values, errors, handleChange, handleFormSubmit} = useForm(signupUser);
 
   return (
     <div className="container-signup">

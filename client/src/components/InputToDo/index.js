@@ -12,7 +12,7 @@ function InputToDo() {
 
   const getCategories = async () => {
     try {
-      const response = await fetch("http://localhost:5000/categories");
+      const response = await fetch("http://localhost:5000/api/categories");
       const jsonData = await response.json();
       console.log(jsonData);
       setCategories(jsonData);
@@ -25,7 +25,7 @@ function InputToDo() {
     e.preventDefault();
     try {
       const body = {description, category};
-      const response = await fetch("http://localhost:5000/todos", {
+      const response = await fetch("http://localhost:5000/api/todos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

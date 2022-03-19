@@ -10,7 +10,6 @@ CREATE TABLE category(
 category_id BIGSERIAL PRIMARY KEY NOT NULL UNIQUE ,
 name VARCHAR(255),
 user_id BIGSERIAL NOT NULL REFERENCES users(user_id) ON UPDATE CASCADE ON DELETE CASCADE
-
 );
 
 CREATE TABLE userTodo (
@@ -42,4 +41,6 @@ password VARCHAR(255) NOT NULL
 );
 
 
-
+INSERT INTO role (name) VALUES ('Admin');
+INSERT INTO role (name) VALUES ('Viewr');
+SELECT * FROM role;

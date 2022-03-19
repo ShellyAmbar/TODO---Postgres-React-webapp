@@ -1,5 +1,6 @@
 const setTodo = async (req, res, next) => {
   try {
+    const userId = req.params.userId;
     const {description, category} = req.body;
     const newTodo = await pool.query(
       "INSERT INTO todo (category,description) VALUES($1, $2) RETURNING *",
@@ -63,4 +64,4 @@ const deleteTodo = async (req, res) => {
   }
 };
 
-export {setTodo, getTodos, getTodo, updateTodo, deleteTodo};
+module.exports = {setTodo, getTodos, getTodo, updateTodo, deleteTodo};

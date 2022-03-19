@@ -11,8 +11,8 @@ const RegisterValidation = (values) => {
 
   if (!values.password) {
     errors.password = "Password is required";
-  } else if (values.password.length < 5) {
-    errors.password = "Password must be more than 5 characters ";
+  } else if (values.password.length < 6) {
+    errors.password = "Password must be more than 6 characters ";
   }
 
   return errors;
