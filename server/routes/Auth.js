@@ -5,7 +5,7 @@ const authentication = require("../middlewares/authenticate");
 
 router.post("/register", AuthController.register);
 
-router.post("/login", (req, res) => {});
+router.post("/login", AuthController.login);
 
 router.post("/logout", (req, res) => {});
 

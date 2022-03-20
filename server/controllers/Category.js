@@ -1,8 +1,13 @@
+const {pool} = require("../databae/dbconfig");
 const getCategories = async (req, res) => {
   try {
-    const allCategories = await pool.query("SELECT * FROM categories");
+    const {user_id} = req.body;
+    const allUserCategories = await pool.query(
+      "SELECT * FROM categories WHERE user_id = $1",
+      [user_id]
+    );
 
-    res.json(allCategories.rows);
+    res.json(allUserCategories.rows);
   } catch (err) {
     console.error(err.message);
   }
@@ -10,9 +15,9 @@ const getCategories = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   try {
-    const {id} = req.params;
+    const {id} = req.body;
 
-    const todo = await pool.query(
+    const category = await pool.query(
       "DELETE FROM categories  WHERE category_id = $1",
       [id]
     );
@@ -25,10 +30,10 @@ const deleteCategory = async (req, res) => {
 
 const addCategory = async (req, res) => {
   try {
-    const {name} = req.body;
+    const {user_id, name} = req.body;
     const newCategory = await pool.query(
-      "INSERT INTO categories (name) VALUES($1) RETURNING *",
-      [name]
+      "INSERT INTO categories (name, user_id) VALUES($1, $2) RETURNING *",
+      [name, user_id]
     );
 
     res.json(newCategory.rows[0]);
