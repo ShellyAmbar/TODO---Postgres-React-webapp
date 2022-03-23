@@ -2,13 +2,23 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import useForm from "../../CustomsHooks/useForm";
 import {useNavigate} from "react-router-dom";
-
+import {login} from "../../store/calls/Auth";
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
   const loginUser = async () => {
-    handleNavigationToDashboardTodo();
+    try {
+      let body = {
+        email: values.email,
+        password: values.password,
+      };
+      const response = await login({body});
+
+      handleNavigationToDashboardTodo();
+    } catch (err) {
+      console.error(err.message);
+    }
   };
   const {handleChange, handleFormSubmit, values, errors} = useForm(loginUser);
 

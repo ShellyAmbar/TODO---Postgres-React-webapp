@@ -1,18 +1,26 @@
 import React, {Fragment, useEffect, useState} from "react";
 import "./InputTodo.css";
+import {addTodo} from "../store/calls/Todos";
+import {
+  addCategory,
+  removeCategory,
+  getCategories,
+} from "../store/calls/Categories";
+
 function InputToDo() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Category");
   const [newCategory, setNewCategory] = useState("New Category");
-  const [categories, setCategories] = useState(["1", "2", "3"]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories();
+    getAllCategories();
   }, []);
 
-  const getCategories = async () => {
+  const getAllCategories = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/categories");
+      const user_id = "";
+      const response = await getCategories({user_id});
       const jsonData = await response.json();
       console.log(jsonData);
       setCategories(jsonData);
@@ -24,14 +32,10 @@ function InputToDo() {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = {description, category};
-      const response = await fetch("http://localhost:5000/api/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const user_id = "";
+      const user_name = "";
+      const body = {user_id, user_name, description, category};
+      const response = await addTodo({body});
       refreshList();
     } catch (err) {
       console.error(err.message);
@@ -42,11 +46,10 @@ function InputToDo() {
     window.location = "/";
   };
 
-  const removeCategory = async (id) => {
+  const deleteCategory = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/categories/${id}`, {
-        method: "DELETE",
-      });
+      const body = {id};
+      const response = await removeCategory({body});
       setCategories(
         categories.filter((category) => category.category_id !== id)
       );
@@ -54,17 +57,12 @@ function InputToDo() {
       console.error(err.message);
     }
   };
-  const addCategory = async (e) => {
+  const addNewCategory = async (e) => {
     e.preventDefault();
     try {
-      const body = {name: newCategory};
-      const response = await fetch("http://localhost:5000/categories", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const user_id = "";
+      const body = {name: newCategory, user_id};
+      const response = await addCategory({body});
       setCategories([
         ...categories,
         {
@@ -102,7 +100,7 @@ function InputToDo() {
                 {category.name}
               </a>
               <button
-                onClick={() => removeCategory(category.category_id)}
+                onClick={() => deleteCategory(category.category_id)}
                 type="button"
                 className="btn btn-danger "
               >
@@ -120,7 +118,7 @@ function InputToDo() {
               href="#"
             />
             <button
-              onClick={(e) => addCategory(e)}
+              onClick={(e) => addNewCategory(e)}
               type="button"
               className="btn btn-primary "
             >

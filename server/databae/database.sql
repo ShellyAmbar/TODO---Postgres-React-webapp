@@ -3,7 +3,8 @@ CREATE DATABASE perntodo;
 CREATE TABLE todo(
     todo_id BIGSERIAL PRIMARY KEY NOT NULL UNIQUE ,
     description VARCHAR(255),
-    category VARCHAR(255) 
+    category VARCHAR(255),
+    user_name VARCHAR(255)
 );
 
 CREATE TABLE category(

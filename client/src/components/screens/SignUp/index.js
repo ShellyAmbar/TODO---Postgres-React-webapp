@@ -4,6 +4,7 @@ import {RegisterValidation} from "../../Util/Validations";
 import useForm from "../../CustomsHooks/useForm";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import {signup} from "../../store/calls/Auth";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -18,14 +19,8 @@ function SignUp() {
         email: values.email,
         password: values.password,
       };
-      const response = await fetch("http://localhost:5000/api/user/register", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
+      const response = await signup({body});
 
-        body: JSON.stringify(body),
-      });
-
-      //console.log(response);
       handleNavigationToDashboardTodo();
     } catch (err) {
       console.error(err.message);

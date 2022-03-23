@@ -1,11 +1,13 @@
 import React, {Fragment, useEffect, useState} from "react";
 import EditToDo from "../EditToDo";
+import {getTodos, removeTodo} from "../store/calls/Todos";
 
 function ListTodos() {
   const [todos, setTodos] = useState([]);
-  const getTodos = async () => {
+  const getAllTodos = async () => {
     try {
-      const response = await fetch("http://localhost:5000/todos");
+      const user_id = "";
+      const response = await getTodos({user_id});
       const jsonData = await response.json();
       setTodos(jsonData);
     } catch (err) {
@@ -13,14 +15,15 @@ function ListTodos() {
     }
   };
   useEffect(() => {
-    getTodos();
+    getAllTodos();
   }, []);
 
   const deleteTodo = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/todos/${id}`, {
-        method: "DELETE",
-      });
+      let body = {
+        id,
+      };
+      const response = await removeTodo({body});
       setTodos(todos.filter((todo) => todo.todo_id !== id));
     } catch (err) {
       console.error(err.message);

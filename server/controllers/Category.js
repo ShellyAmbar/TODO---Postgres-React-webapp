@@ -1,7 +1,7 @@
 const {pool} = require("../databae/dbconfig");
 const getCategories = async (req, res) => {
   try {
-    const {user_id} = req.body;
+    const {user_id} = req.params;
     const allUserCategories = await pool.query(
       "SELECT * FROM categories WHERE user_id = $1",
       [user_id]

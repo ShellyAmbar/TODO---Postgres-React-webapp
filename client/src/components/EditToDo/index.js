@@ -1,21 +1,20 @@
 import React, {Fragment, useEffect, useState} from "react";
+import {updateTodo} from "../store/calls/Todos";
 function EditTodo({todo, onEditComplete}) {
   const [description, setDescription] = useState(todo.description);
   const [category, setCategory] = useState(todo.category);
+  const [userName, setUserName] = useState(todo.user_name);
 
   const editTodo = async (e) => {
     e.preventDefault();
     try {
-      const body = {description, category};
-      const response = await fetch(
-        `http://localhost:5000/todos/${todo.todo_id}`,
-        {
-          method: "PUT",
-          headers: {"Content-Type": "application/json"},
-
-          body: JSON.stringify(body),
-        }
-      );
+      const body = {
+        id: todo.todo_id,
+        description,
+        category,
+        user_name: userName,
+      };
+      const response = await updateTodo({body});
       console.log(response);
       onEditComplete();
     } catch (err) {
@@ -30,6 +29,7 @@ function EditTodo({todo, onEditComplete}) {
   const resetData = () => {
     setDescription(todo.description);
     setCategory(todo.category);
+    setUserName(todo.user_name);
   };
   return (
     <Fragment>

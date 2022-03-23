@@ -2,10 +2,10 @@ const {pool} = require("../databae/dbconfig");
 
 const setTodo = async (req, res, next) => {
   try {
-    const {user_id, description, category} = req.body;
+    const {user_id, user_name, description, category} = req.body;
     const newTodo = await pool.query(
-      "INSERT INTO todo (category,description) VALUES($1, $2) RETURNING *",
-      [category, description]
+      "INSERT INTO todo (user_name,category,description) VALUES($1, $2, $3) RETURNING *",
+      [user_name, category, description]
     );
 
     console.log("todo_id", newTodo.rows[0].todo_id);
@@ -29,7 +29,8 @@ const setTodo = async (req, res, next) => {
 
 const getTodos = async (req, res) => {
   try {
-    const {user_id} = req.body;
+    const {user_id} = req.params;
+
     const allTodos = await pool.query(
       "SELECT * FROM todo INNER JOIN SELECT * FROM userTodo WHERE user_id = $1 ON todo.todo_id = userTodo.todo_id",
       [user_id]
@@ -56,11 +57,11 @@ const getTodo = async (req, res) => {
 
 const updateTodo = async (req, res) => {
   try {
-    const {id, description, category} = req.body;
+    const {id, user_name, description, category} = req.body;
 
     const todo = await pool.query(
-      "UPDATE todo SET description = $1, category = $2 WHERE todo_id = $3",
-      [description, category, id]
+      "UPDATE todo SET  description = $1, category = $2, user_name =$3 WHERE todo_id = $4",
+      [description, category, user_name, id]
     );
 
     res.json("todo was updated");

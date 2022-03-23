@@ -32,8 +32,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    let {name, email, password} = req.body;
-    console.log({name, email, password});
+    let {email, password} = req.body;
 
     let users = await pool.query("SELECT * FROM users WHERE email =$1", [
       email,
