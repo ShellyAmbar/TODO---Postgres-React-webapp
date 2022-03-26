@@ -20,13 +20,18 @@ function SignUp() {
         password: values.password,
       };
       const response = await signup({body});
-
-      handleNavigationToDashboardTodo();
+      console.log(response);
+      if (response.error || response.status !== 200) {
+        setErrors({...errors, email: "Email is invalid."});
+      } else {
+        //  handleNavigationToDashboardTodo();
+      }
     } catch (err) {
       console.error(err.message);
     }
   };
-  const {values, errors, handleChange, handleFormSubmit} = useForm(signupUser);
+  const {values, errors, handleChange, handleFormSubmit, setErrors} =
+    useForm(signupUser);
 
   return (
     <div className="container-signup">

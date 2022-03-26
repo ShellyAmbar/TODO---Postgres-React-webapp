@@ -1,19 +1,38 @@
 const signup = async ({body}) => {
-  return fetch("http://localhost:5000/api/user/register", {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  return fetch("http://localhost:5000/api/auth/register", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: headers,
 
     body: JSON.stringify(body),
   });
 };
 
 const login = async ({body}) => {
-  return fetch("http://localhost:5000/api/user/login", {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+  return fetch("http://localhost:5000/api/auth/login", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: headers,
 
     body: JSON.stringify(body),
   });
 };
 
-export {signup, login};
+const getUserToken = ({refreshToken}) => {
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "bearer" + refreshToken,
+  };
+
+  return fetch("http://localhost:5000/api/auth/refresh-token", {
+    method: "POST",
+    body: {refreshToken: refreshToken},
+    headers: headers,
+  });
+};
+
+export {signup, login, getUserToken};

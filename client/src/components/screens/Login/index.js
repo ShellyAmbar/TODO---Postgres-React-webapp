@@ -15,12 +15,17 @@ function Login() {
       };
       const response = await login({body});
 
-      handleNavigationToDashboardTodo();
+      if (response.error || response.status !== 200) {
+        setErrors({...errors, email: "Email or Password are invalid."});
+      } else {
+        //  handleNavigationToDashboardTodo();
+      }
     } catch (err) {
       console.error(err.message);
     }
   };
-  const {handleChange, handleFormSubmit, values, errors} = useForm(loginUser);
+  const {handleChange, handleFormSubmit, values, errors, setErrors} =
+    useForm(loginUser);
 
   const handleNavigationToDashboardTodo = () => {
     navigate("/TodoDashboard");
